@@ -147,9 +147,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="example.dll" />
-    <Content Include="mbn.c" />
-    <Content Include="mbn.dll" />
-    <Content Include="mbn.h" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

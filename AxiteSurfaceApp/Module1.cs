@@ -79,19 +79,37 @@ namespace AxiteSurfaceApp
             //Debug.Print(intVal.ToString());
             //if (Val != null) Debug.Print(Val.ToString());
 
+
+
             // ---------------------------- Oled Display Text -------------------------------------------
             if (obje <= 1035 && obje >= 1024)
             {
-                for (int t = 0; t < 7; t++)  // Alle modules
+
+                for (int t = 1; t < 7; t++)  // Alle modules
                 {
-                    for (int l = 2; l < 4; l++)  // De twee tekst regels in het display
-                    {
-                        // Find label by name
-                        var displayByName = Controls.Find("label" + t + "_" + l, true).FirstOrDefault();
-                
-                        if (displayByName != null && obje == 1024 + ( l - 2 ) * 6 + t - 1)
-                            displayByName.Text = Val;
-                    }
+
+
+
+                    // Find label by name module nr
+                    var displayByName = Controls.Find("labelModule" + t, true).FirstOrDefault();
+
+                    if (displayByName != null && obje == 1024 + t - 1)
+                        displayByName.Text = Val.Substring(5, 2);
+
+
+
+                    // Find label by name module nr 
+                    var displayByNameMod = Controls.Find("label" + t + "_" + 2, true).FirstOrDefault();
+
+                        if (displayByNameMod != null && obje == 1024 + t - 1)
+                            displayByNameMod.Text = Val;
+
+                    // Find label by name
+                    var displayByNameSrc = Controls.Find("label" + t + "_" + 3, true).FirstOrDefault();
+
+                        if (displayByNameSrc != null && obje == 1030 + t - 1)
+                            displayByNameSrc.Text = Val;
+
                 }
             }
 
@@ -105,7 +123,7 @@ namespace AxiteSurfaceApp
                 for (int m = 0; m < 7; m++)  // Alle modules
                 {
                     // Ga alle labels af, doe dit 9 keer
-                    for (int t = 0; t < 10; t++)
+                    for (int t = 0; t < 9; t++)
                     {
                         // Find label by name
                         Control displayByName = Controls.Find("displayLabel" + m.ToString() + "_" + t.ToString(), true).FirstOrDefault();
@@ -136,9 +154,30 @@ namespace AxiteSurfaceApp
             // ---------------------------- MODULE MOTOR FADERS -------------------------------------------
             else if (obje >= 1084 && obje <= 1090)
             {
-                //for (int m = 1; m < 7; m++)
+
+
+                for (int m = 1; m < 7; m++)
                 {
-                    if (MotorFader == true)
+                    var dispByNameDBu = Controls.Find("label" + m + "_" + 2, true).FirstOrDefault();
+
+                    if (obje == 1084 + m - 1)
+                        dispByNameDBu.Text = ((double)((1023 - intVal) / 20)).ToString() + " dBu";
+                }
+                //else if (obje == 1085)
+                //    label1_2.Text = intVal.ToString();
+                //else if (obje == 1086)
+                //    faderCtrl3.Value = intVal;
+                //else if (obje == 1087)
+                //    faderCtrl4.Value = intVal;
+                //else if (obje == 1088)
+                //    faderCtrl5.Value = intVal;
+                //else if (obje == 1089)
+                //    faderCtrl6.Value = intVal;
+
+                if (intVal > 1023) intVal = 1024;
+                if (intVal < 1) intVal = 0;
+
+                if (MotorFader == true)
                     {
                         if (intVal > 1023) intVal = 1024;
                         if (intVal < 1) intVal = 0;
@@ -157,7 +196,7 @@ namespace AxiteSurfaceApp
                             faderCtrl6.Value = intVal;
                         
                     }
-                }
+                
             }
 
             // ---------------------------- MODULE VU METERS -------------------------------------------
