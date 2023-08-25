@@ -161,7 +161,16 @@ namespace AxiteSurfaceApp
                     var dispByNameDBu = Controls.Find("label" + m + "_" + 2, true).FirstOrDefault();
 
                     if (obje == 1084 + m - 1)
-                        dispByNameDBu.Text = ((double)((1023 - intVal) / 20)).ToString() + " dBu";
+                    {
+                        double dBvala = (1023 - intVal) / 20;
+                        uint dBvalb = (uint)dBvala;
+                        //Debug.Print(dBvala.ToString());
+                        dispByNameDBu.Text = dBvalb.ToString() + " dBu";
+                        if (dBvalb >50)
+                        {
+                            dispByNameDBu.Text = "-infdB";
+                        }
+                    }
                 }
                 //else if (obje == 1085)
                 //    label1_2.Text = intVal.ToString();
