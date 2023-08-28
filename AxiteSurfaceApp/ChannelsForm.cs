@@ -586,7 +586,7 @@ namespace AxiteSurfaceApp
         [DllImport("mbn.dll", CharSet = CharSet.Ansi, EntryPoint = "retString@4")]
         public static extern int retString(StringBuilder ObjectActuatorStr);
 
-        StringBuilder ObjectActuatorStr = new StringBuilder(capacity: 0x10240);
+        StringBuilder ObjectActuatorStr = new StringBuilder(capacity: 0x5024);
 
 
         public delegate void CallBack(string str);
