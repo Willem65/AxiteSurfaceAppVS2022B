@@ -194,10 +194,21 @@ namespace AxiteSurfaceApp
                 if (eventTeller2 == 0)
                 {
                     eventTeller2++;
-                    ushort vuLevel1 = ((ushort)(device.AudioMeterInformation.PeakValues[0] * 1023));
-                    sensor(1088, vuLevel1);  // Stuur de audio peak value naar de fader
-                    ushort vuLevell1 = (ushort)(device.AudioMeterInformation.PeakValues[1] * 1023);
-                    sensor(1089, vuLevell1);
+                    double vuLevel1 = ((ushort)(device.AudioMeterInformation.PeakValues[0] * 1023));
+
+                    vuLevel1 =toLog(vuLevel1);
+                    //vuLevel1 = (80 * Math.Log(vuLevel1 * 120));
+
+                    sensor(1088, (ushort)vuLevel1);  // Stuur de audio peak value naar de fader
+
+
+
+                    double vuLevelR1 = (ushort)(device.AudioMeterInformation.PeakValues[1] * 1023);
+
+                    vuLevelR1 = toLog(vuLevelR1);
+                    //vuLevelR1 = (80 * Math.Log(vuLevelR1 * 120));
+
+                    sensor(1089, (ushort)vuLevelR1);
                     //Thread.Sleep(5);
 
                 }
@@ -215,7 +226,56 @@ namespace AxiteSurfaceApp
             }
         }
 
+        double toLog(double inValue)
+        {
+            inValue = (140 * Math.Log(inValue * 1));
+            return inValue;
+        }
 
+        int CorrTabelN(double tst)
+        {
+
+            double rtst = 0, corrected = 10, corrected2 = 80;
+
+            if ((tst / corrected) > 147) rtst = corrected2 * 40;
+            else if ((tst / corrected) > 146) rtst = corrected2 * 39;
+            else if ((tst / corrected) > 145) rtst = corrected2 * 38;
+            else if ((tst / corrected) > 144) rtst = corrected2 * 36;
+            else if ((tst / corrected) > 143) rtst = corrected2 * 34;
+            else if ((tst / corrected) > 142) rtst = corrected2 * 33;
+            else if ((tst / corrected) > 141) rtst = corrected2 * 32;   //7
+            else if ((tst / corrected) > 140) rtst = corrected2 * 31;
+            else if ((tst / corrected) > 139) rtst = corrected2 * 30;
+            else if ((tst / corrected) > 138) rtst = corrected2 * 29;
+            else if ((tst / corrected) > 137) rtst = corrected2 * 28;
+            else if ((tst / corrected) > 136) rtst = corrected2 * 27;   //6
+            else if ((tst / corrected) > 136) rtst = corrected2 * 26;
+            else if ((tst / corrected) > 135) rtst = corrected2 * 25;
+            else if ((tst / corrected) > 134) rtst = corrected2 * 24;
+            else if ((tst / corrected) > 133) rtst = corrected2 * 23;   //4
+            else if ((tst / corrected) > 132) rtst = corrected2 * 22;
+            else if ((tst / corrected) > 131) rtst = corrected2 * 21;
+            else if ((tst / corrected) > 130) rtst = corrected2 * 19;
+            else if ((tst / corrected) > 129) rtst = corrected2 * 18;   //5
+            else if ((tst / corrected) > 127) rtst = corrected2 * 16;
+            else if ((tst / corrected) > 125) rtst = corrected2 * 14;   //5
+            else if ((tst / corrected) > 123) rtst = corrected2 * 13;
+            else if ((tst / corrected) > 121) rtst = corrected2 * 12;
+            else if ((tst / corrected) > 120) rtst = corrected2 * 11;
+            else if ((tst / corrected) > 119) rtst = corrected2 * 10;   //4
+            else if ((tst / corrected) > 117) rtst = corrected2 * 9;
+            else if ((tst / corrected) > 116) rtst = corrected2 * 8;
+            else if ((tst / corrected) > 114) rtst = corrected2 * 7;
+            else if ((tst / corrected) > 111) rtst = corrected2 * 6;
+            else if ((tst / corrected) > 103) rtst = corrected2 * 5;
+            else if ((tst / corrected) > 92) rtst = corrected2 * 4;
+            else if ((tst / corrected) > 76) rtst = corrected2 * 3;
+            else if ((tst / corrected) > 57) rtst = corrected2 * 2;
+            else if ((tst / corrected) >= 35) rtst = corrected2 * 1;
+            else if ((tst / corrected) < 17) rtst = corrected2 * 0;
+
+            return (int)rtst;
+        }
 
         // ################################ TIMER 1 TICK ###################################################
         //string acc = "#0000_0000";
