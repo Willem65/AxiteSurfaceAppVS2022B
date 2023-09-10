@@ -628,7 +628,10 @@ namespace AxiteSurfaceApp
             timer2.Enabled = false;
         }
 
+        private void displayLabel1_1_Click(object sender, EventArgs e)
+        {
 
+        }
 
         private void timer3_Tick(object sender, EventArgs e)
         {

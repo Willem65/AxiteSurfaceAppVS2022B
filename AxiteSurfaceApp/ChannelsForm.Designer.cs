@@ -429,6 +429,7 @@
             this.displayLabel1_1.TabIndex = 46;
             this.displayLabel1_1.Text = "PGM";
             this.displayLabel1_1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.displayLabel1_1.Click += new System.EventHandler(this.displayLabel1_1_Click);
             // 
             // ConnectButton
             // 
